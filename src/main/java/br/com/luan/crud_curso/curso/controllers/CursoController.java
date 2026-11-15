@@ -32,7 +32,7 @@ public class CursoController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<CursoEntity>> listCursos(@RequestParam(required = false) String category, @RequestParam(required = false) String name) {
 
         List<CursoEntity> cursos;
@@ -48,6 +48,16 @@ public class CursoController {
         }
 
         return ResponseEntity.ok(cursos);
+    }
+
+    @GetMapping("/detalhes/{id}")
+    public ResponseEntity<CursoEntity> getCurso (@PathVariable UUID id) {
+        Optional<CursoEntity> cursoOptional = cursoRepository.findById(id);
+
+        if (cursoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cursoOptional.get());
     }
 
     @PutMapping("/{id}")
@@ -74,7 +84,7 @@ public class CursoController {
         return ResponseEntity.ok(cursoAtualizado);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String, String>> deleteCurso(@PathVariable UUID id) {
         if (cursoRepository.existsById(id)) {
             cursoRepository.deleteById(id);
@@ -85,7 +95,7 @@ public class CursoController {
         }
     }
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping("/status/{id}")
     public ResponseEntity<CursoEntity> statusCurso(@PathVariable UUID id, @RequestBody PatchCursoDTO dto) {
         Optional<CursoEntity> cursoOptional = cursoRepository.findById(id);
 
