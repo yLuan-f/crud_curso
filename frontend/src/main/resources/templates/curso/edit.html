@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Edição de curso</title>
+</head>
+<body class="bg-slate-900">
+
+<nav class="bg-black flex items-center justify-between p-4">
+    <div class="text-indigo-500 text-4xl font-bold">Edição</div>
+    <a href="/curso/list" class="bg-indigo-500 text-black px-4 py-2 rounded hover:bg-indigo-600">
+        Voltar
+    </a>
+</nav>
+
+<main class="max-w-2xl mx-auto mt-10 bg-slate-500 rounded-lg shadow p-8">
+    <div class="flex items-start justify-between mb-6">
+        <h1 class="text-3xl font-bold text-indigo-700 mb-6">Edite o curso</h1>
+
+        <form th:action="@{/curso/details/status/{id}(id=${cursos.id})}" method="post"
+              class="flex items-center gap-3">
+            <span class="text-sm font-semibold"
+                  th:classappend="${cursos.active} ? 'text-emerald-300' : 'text-red-300'"
+                  th:text="${cursos.active} ? 'Ativo' : 'Inativo'"></span>
+
+            <input type="hidden" name="active" th:value="${!cursos.active}">
+
+            <button type="submit" role="switch" th:attr="aria-checked=${cursos.active}"
+                    class="relative w-16 h-9 rounded-full border-2 transition-colors"
+                    th:classappend="${cursos.active} ? 'bg-emerald-500 border-emerald-500' : 'bg-transparent border-red-500'">
+                <span class="absolute top-1 w-6 h-6 rounded-full transition-all"
+                      th:classappend="${cursos.active} ? 'left-8 bg-white' : 'left-1 bg-red-500'"></span>
+            </button>
+        </form>
+    </div>
+
+    <form th:action="@{/curso/details/edit/{id}(id=${cursos.id})}" th:object="${cursos}"
+          method="post" class="space-y-5">
+
+        <div>
+            <label class="block mb-1 text-xs uppercase tracking-wide text-slate-200">Nome</label>
+            <input type="text" th:field="*{name}"
+                   class="w-full bg-white text-black text-lg rounded-lg p-2">
+        </div>
+
+        <div>
+            <label class="block mb-1 text-xs uppercase tracking-wide text-slate-200">Categoria</label>
+            <input type="text" th:field="*{category}"
+                   class="w-full bg-white text-black text-lg rounded-lg p-2">
+        </div>
+
+        <div>
+            <label class="block mb-1 text-xs uppercase tracking-wide text-slate-200">Professor</label>
+            <input type="text" th:field="*{teacher}"
+                   class="w-full bg-white text-black text-lg rounded-lg p-2">
+        </div>
+        <div class="flex justify-center pt-2">
+            <button type="submit"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white text-lg py-3 px-10 rounded-lg">
+                Salvar informações
+            </button>
+        </div>
+    </form>
+</main>
+
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"> </script>
+    <title> Lista de cursos</title>
+</head>
+
+<nav class="flex justify-center font-bold pt-10 pb-5">
+    <div class="text-indigo-500 text-4xl">
+        Cursos
+    </div>
+</nav>
+
+<body class="bg-slate-900 h-screen flex flex-col">
+<div class="flex-grow pt-10 flex justify-center">
+
+    <div class="absolute top-36 pb-3 w-6/12 mb-10">
+        <table class="w-full border-separate border-spacing-y-2">
+            <thead>
+            <tr class="bg-slate-600 text-white">
+                <th class="text-left py-2 px-4 rounded-l-xl">Nome</th>
+                <th class="text-left py-2 px-4 rounded-r-xl">Categoria</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="curso: ${cursos}" class="bg-indigo-900 text-white">
+                <td class="px-4 py-3 rounded-l-xl" th:text="${curso.name}"></td>
+                <td class="px-4 py-3" th:text="${curso.category}"></td>
+                <td class="bg-indigo-900 px-4 py-3 rounded-r-xl">
+                    <a th:href="@{/curso/details/{id}(id=${curso.id})}"
+                       class="inline-block bg-slate-600 rounded-lg py-4 px-4 hover:bg-slate-700 w-full flex justify-center">
+                        Detalhes
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="flex justify-center mt-4">
+            <a th:href="@{/curso/create}" class="text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg py-6 px-12 inline-block text-sm">Adicionar Curso</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
