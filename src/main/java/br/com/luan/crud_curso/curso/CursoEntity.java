@@ -23,6 +23,8 @@ public class CursoEntity {
     @NotBlank (message = "Name is required")
     private String name;
 
+    @NotNull
+    @NotBlank (message = "Teacher is required")
     private String teacher;
 
     @NotNull

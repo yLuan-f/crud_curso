@@ -50,7 +50,7 @@ public class CursoController {
         return ResponseEntity.ok(cursos);
     }
 
-    @GetMapping("/detalhes/{id}")
+    @GetMapping("/details/{id}")
     public ResponseEntity<CursoEntity> getCurso (@PathVariable UUID id) {
         Optional<CursoEntity> cursoOptional = cursoRepository.findById(id);
 
@@ -60,7 +60,7 @@ public class CursoController {
         return ResponseEntity.ok(cursoOptional.get());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/details/edit/{id}")
     public ResponseEntity<CursoEntity> updateCurso(@PathVariable UUID id, @RequestBody UpdateCursoDTO dto) {
 
         Optional<CursoEntity> cursoOptional = cursoRepository.findById(id);
@@ -78,6 +78,9 @@ public class CursoController {
 
         if (dto.getCategory() != null) {
             curso.setCategory(dto.getCategory());
+        }
+        if (dto.getTeacher() != null) {
+            curso.setTeacher(dto.getTeacher());
         }
 
         CursoEntity cursoAtualizado = cursoRepository.save(curso);
